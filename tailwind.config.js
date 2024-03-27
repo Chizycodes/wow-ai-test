@@ -3,10 +3,15 @@
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				primary: '#6C63FF',
+			},
+		},
 	},
 	daisyui: {
-		themes: ["aqua", "dark"],
+		themes: ['aqua', 'dark'],
+		DarkTheme: 'dark',
 	},
 	// eslint-disable-next-line no-undef
 	plugins: [require('@tailwindcss/typography'), require('daisyui')],
