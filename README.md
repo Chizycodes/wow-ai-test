@@ -4,12 +4,12 @@ This documentation provides an overview of the features implemented in the Todo 
 
 ## Features
 
-- Users can add a new task by entering a title and description.
-- Users can edit the title and description of an existing task.
-- Users can mark a task as completed or pending.
+- Users can add a new task by entering a title, description, priority and due date.
+- Users can edit the title, description, priority, due date and status of an existing task.
+- Users can mark a task as pending, in-progress or completed.
 - Users can delete a task.
 - Form validation ensures that required fields are filled out correctly.
-- The application displays a list of tasks, with the ability to filter tasks based on their completion status (completed, pending, in-progress, or all).
+- The application displays a list of tasks, with the ability to filter tasks based on their completion status (completed, pending, in-progress, or all) and priority (low, medium, high and all).
 - Tasks are persisted locally, preventing data loss upon page refresh.
 
 ## Technologies Used
