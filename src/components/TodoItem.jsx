@@ -13,10 +13,15 @@ const getStatusColor = (status) => {
 	}
 };
 
-const TodoItem = ({ todo, setTodoToEdit, handleDelete }) => {
+const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen }) => {
 	return (
 		<div className="collapse bg-transparent shadow-md">
-			<input type="radio" name="todo-item" className="w-full p-0" />
+			<input
+				type="radio"
+				name="todo-item"
+				checked={todoOpen === todo?.id}
+				onClick={() => setTodoOpen(todo.id === todoOpen ? null : todo.id)}
+			/>
 			<div className="collapse-title flex justify-between gap-2 w-full">
 				<div>
 					<p className="font-medium text-base">

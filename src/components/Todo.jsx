@@ -15,6 +15,7 @@ const Todo = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isUpdate, setIsUpdate] = useState({});
 	const [todoToEdit, setTodoToEdit] = useState(null);
+	const [todoOpen, setTodoOpen] = useState(null);
 
 	// Search and Filter Logic
 	const [searchQuery, setSearchQuery] = useState('');
@@ -92,7 +93,7 @@ const Todo = () => {
 				{filteredList.length > 0 ? (
 					<div className="flex flex-col">
 						{filteredList.map((todo) => (
-							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} setTodoToEdit={setTodoToEdit} />
+							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} setTodoToEdit={setTodoToEdit} todoOpen={todoOpen} setTodoOpen={setTodoOpen} />
 						))}
 					</div>
 				) : (
@@ -103,7 +104,7 @@ const Todo = () => {
 			</div>
 
 			<div
-				className="w-12 h-12 bg-primary rounded-full absolute bottom-4 right-4 z-10 text-white flex items-center justify-center font-2xl cursor-pointer"
+				className="w-12 h-12 bg-primary rounded-full absolute bottom-4 right-4 z-10 text-white flex items-center justify-center font-2xl cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
 				onClick={() => setIsModalOpen(true)}
 			>
 				<IoIosAdd size={120} />

@@ -119,7 +119,10 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 							)}
 
 							<div className="modal-action">
-								<button type="submit" className="btn bg-primary text-white">
+								<button
+									type="submit"
+									className="btn btn-primary bg-primary text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+								>
 									Submit {loading && <span className="loading loading-spinner loading-md"></span>}
 								</button>
 							</div>
