@@ -20,11 +20,11 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete }) => {
 			<div className="collapse-title flex justify-between gap-2 w-full">
 				<div>
 					<p className="font-medium text-base">
-						{todo?.title}{' '}
+						<span className={todo?.status === 'completed' ? 'line-through' : ''}>{todo?.title}</span>{' '}
 						<span className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>{todo?.status}</span>
 					</p>
 				</div>
-				<div className="flex gap-2 items-center z-20">
+				<div className="flex gap-2 items-center z-10">
 					<CiEdit className="text-primary cursor-pointer" size={20} onClick={() => setTodoToEdit(todo)} />
 					<MdOutlineDeleteForever
 						className="text-red-600 cursor-pointer"

@@ -1,4 +1,4 @@
-import { useEffect, useState, useId } from 'react';
+import { useEffect, useState } from 'react';
 import SearchFilter from './SearchFilter';
 import ThemeSwitcher from './ThemeSwitcher';
 import NoItemFound from '../assets/no-item-found.svg';
@@ -16,8 +16,23 @@ const Todo = () => {
 	const [isUpdate, setIsUpdate] = useState({});
 	const [todoToEdit, setTodoToEdit] = useState(null);
 
-	// Search Logic
+	// Search and Filter Logic
 	const [searchQuery, setSearchQuery] = useState('');
+	const [statusFilter, setStatusFilter] = useState('');
+	const [priorityFilter, setPriorityFilter] = useState('');
+
+	// Function to handle filter
+	const handleFilter = () => {
+		const filtered = todoList.filter((todo) => todo.status === statusFilter || todo.priority === priorityFilter);
+		setFilteredList(filtered);
+	};
+
+	// Function to reset filters
+	const resetFilters = () => {
+		setStatusFilter('');
+		setPriorityFilter('');
+		setFilteredList(todoList);
+	};
 
 	const handleAddTodo = (todo) => {
 		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
@@ -62,7 +77,16 @@ const Todo = () => {
 					<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
 					<ThemeSwitcher />
 				</div>
-				<SearchFilter todoList={todoList} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+				<SearchFilter
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					setStatusFilter={setStatusFilter}
+					setPriorityFilter={setPriorityFilter}
+					statusFilter={statusFilter}
+					priorityFilter={priorityFilter}
+					handleFilter={handleFilter}
+					resetFilters={resetFilters}
+				/>
 			</div>
 			<div className="h-[70%] mt-5 overflow-y-auto">
 				{filteredList.length > 0 ? (
