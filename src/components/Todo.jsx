@@ -2,30 +2,49 @@ import { useEffect, useState } from 'react';
 import SearchFilter from './SearchFilter';
 import ThemeSwitcher from './ThemeSwitcher';
 import NoItemFound from '../assets/no-item-found.svg';
-import todolist from '../utils/data';
+// import todolist from '../utils/data';
 import TodoItem from './TodoItem';
 import { IoIosAdd } from 'react-icons/io';
+import AddUpdateModal from './AddUpdateModal';
 
 const Todo = () => {
 	const [todoList, setTodoList] = useState([]);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isUpdate, setIsUpdate] = useState(false);
+	const [todoToEdit, setTodoToEdit] = useState({});
 
-	useEffect(() => {
-		setTodoList(todolist);
-	}, []);
+	const handleAddTodo = (todo) => {
+		console.log(todo);
+	};
+
+	const handleEdit = (todo) => {
+		console.log(todo);
+		setTodoToEdit(todo);
+		setIsModalOpen(true);
+	};
+
+	const handleDelete = (todo) => {
+		console.log(todo);
+	};
+
+	useEffect(() => {}, [todoList]);
+	// useEffect(() => {
+	//   setIsModalOpen(true);
+	// }, [todoToEdit]);
 	return (
-		<div>
-			<div className="flex justify-between items-center">
-				<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
-				<ThemeSwitcher />
-			</div>
-			<SearchFilter />
+		<div className="h-full">
 			<div>
+				<div className="flex justify-between items-center">
+					<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
+					<ThemeSwitcher />
+				</div>
+				<SearchFilter />
+			</div>
+			<div className="h-[70%] mt-5 overflow-y-auto">
 				{todoList.length > 0 ? (
-					<div className="flex flex-col gap-4 mt-5">
+					<div className="flex flex-col">
 						{todoList.map((todo) => (
-							<div key={todo.id} className="border border-transparent border-b-primary p-2">
-								<TodoItem todo={todo} />
-							</div>
+							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} handleEdit={handleEdit} />
 						))}
 					</div>
 				) : (
@@ -35,9 +54,23 @@ const Todo = () => {
 				)}
 			</div>
 
-			<div className="w-12 h-12 bg-primary rounded-full absolute bottom-4 right-4 z-10 text-white flex items-center justify-center font-2xl cursor-pointer">
+			<div
+				className="w-12 h-12 bg-primary rounded-full absolute bottom-4 right-4 z-10 text-white flex items-center justify-center font-2xl cursor-pointer"
+				onClick={() => setIsModalOpen(true)}
+			>
 				<IoIosAdd size={120} />
 			</div>
+
+			{isModalOpen && (
+				<AddUpdateModal
+					isOpen={isModalOpen}
+					setIsOpen={setIsModalOpen}
+					handleAddTodo={handleAddTodo}
+					handleEdit={handleEdit}
+					isUpdate={isUpdate}
+					todo={todoToEdit}
+				/>
+			)}
 		</div>
 	);
 };
