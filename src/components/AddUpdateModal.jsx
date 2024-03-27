@@ -2,23 +2,16 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
+import moment from 'moment';
 
 const schema = yup.object().shape({
 	title: yup.string().required('Title is required'),
 	description: yup.string().required('Description is required'),
 	priority: yup.string().required('Priority is required'),
-	deadline: yup.date().required('Deadline is required'),
+	dueDate: yup.date(),
 });
 
-const AddUpdateModal = ({
-	handleAddTodo,
-	handleEditTodo,
-	loading = false,
-	isOpen,
-	setIsOpen,
-	isUpdate = false,
-	todoToEdit = {},
-}) => {
+const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen, handleClose, todoToEdit = {} }) => {
 	const {
 		register,
 		handleSubmit,
@@ -35,13 +28,12 @@ const AddUpdateModal = ({
 			handleAddTodo(data);
 		}
 		reset();
-		setIsOpen(false);
-		
+		handleClose();
 	};
 
 	useEffect(() => {
 		if (todoToEdit?.id) {
-			reset(todoToEdit);
+			reset({ ...todoToEdit, dueDate: moment(todoToEdit?.deadline).format('YYYY-MM-DD') });
 		}
 	}, []);
 
@@ -49,11 +41,11 @@ const AddUpdateModal = ({
 		<dialog id="todo-modal" className={`modal ${isOpen ? 'modal-open' : ''}`}>
 			<div className="modal-box bg-white text-gray-700">
 				<form method="dialog">
-					<button className="btn btn-sm btn-ghost absolute right-2 top-2" onClick={() => setIsOpen(false)}>
+					<button className="btn btn-sm btn-ghost absolute right-2 top-2" onClick={handleClose}>
 						✕
 					</button>
 				</form>
-				<h3 className="font-bold text-lg">{todoToEdit ? 'EDIT' : 'ADD'} TO-DO</h3>
+				<h3 className="font-bold text-lg">{todoToEdit ? 'EDIT' : 'NEW'} TASK</h3>
 				<div>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="mt-3 flex flex-col gap-2">
@@ -97,18 +89,18 @@ const AddUpdateModal = ({
 							</div>
 
 							<div className="flex flex-col">
-								<label className="font-medium">Deadline</label>
+								<label className="font-medium">Due Date</label>
 								<input
 									type="date"
-									{...register('deadline')}
-									className={`grow input input-md border-primary focus:border-primary focus:outline-none outline-none bg-transparent ${
+									{...register('dueDate')}
+									className={`input input-md border-primary focus:border-primary focus:outline-none outline-none bg-transparent ${
 										errors.deadline ? 'border-red-500' : ''
 									}`}
 								/>
 								{errors.deadline && <p className="text-red-500 text-xs mt-1">{errors.deadline.message}</p>}
 							</div>
 
-							{isUpdate && (
+							{todoToEdit && (
 								<div className="flex flex-col">
 									<label className="font-medium">Status</label>
 									<select
@@ -127,8 +119,8 @@ const AddUpdateModal = ({
 							)}
 
 							<div className="modal-action">
-								<button type="submit" className="btn btn-primary text-white">
-									Apply {loading && <span className="loading loading-spinner loading-md"></span>}
+								<button type="submit" className="btn bg-primary text-white">
+									Submit {loading && <span className="loading loading-spinner loading-md"></span>}
 								</button>
 							</div>
 						</div>

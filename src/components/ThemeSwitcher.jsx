@@ -1,20 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/themeContext';
 
 const ThemeSwitcher = () => {
-	const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'light');
-
-	const toggleTheme = (e) => {
-		e.preventDefault();
-		const newTheme = theme === 'light' ? 'dark' : 'light'; // Toggle between light and dark themes
-		setTheme(newTheme);
-
-		localStorage.setItem('theme', newTheme);
-	};
-
-	useEffect(() => {
-		const useTheme = theme === 'light' ? 'aqua' : 'dark';
-		document.documentElement.setAttribute('data-theme', useTheme);
-	}, [theme]);
+	const { theme, toggleTheme } = useContext(ThemeContext);
 
 	return (
 		<label className="swap swap-rotate">

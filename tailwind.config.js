@@ -6,11 +6,18 @@ export default {
 		extend: {
 			colors: {
 				primary: '#6C63FF',
+				dark: {
+					default: '#666666',
+          lighter: '#999999',
+          light: '#CCCCCC',
+          darker: '#333333',
+          darkest: '#000000',
+				}
 			},
 		},
 	},
 	daisyui: {
-		themes: ['aqua', 'dark'],
+		themes: ['light', 'dark'],
 		DarkTheme: 'dark',
 	},
 	// eslint-disable-next-line no-undef

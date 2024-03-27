@@ -16,14 +16,14 @@ const Todo = () => {
 	const [todoToEdit, setTodoToEdit] = useState(null);
 
 	const handleAddTodo = (todo) => {
-		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id }]);
+		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
 		setIsModalOpen(false);
 	};
 
 	const handleEdit = (todo) => {
 		const updatedTodo = todoList.map((t) => {
 			if (t.id === todo.id) {
-				return todo;
+				return { ...todo, lastUpdated: new Date()};
 			}
 			return t;
 		});
@@ -34,6 +34,11 @@ const Todo = () => {
 	const handleDelete = (todo) => {
 		const updatedTodo = todoList.filter((t) => t.id !== todo.id);
 		setTodoList(updatedTodo);
+	};
+
+	const handleClose = () => {
+		setIsModalOpen(false);
+		setTodoToEdit(null);
 	};
 
 	useEffect(() => {
@@ -73,7 +78,7 @@ const Todo = () => {
 			{(isModalOpen || todoToEdit) && (
 				<AddUpdateModal
 					isOpen={isModalOpen || todoToEdit}
-					setIsOpen={setIsModalOpen}
+					handleClose={handleClose}
 					handleAddTodo={handleAddTodo}
 					handleEditTodo={handleEdit}
 					isUpdate={isUpdate}
