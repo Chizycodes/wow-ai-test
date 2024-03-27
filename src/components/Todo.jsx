@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useId } from 'react';
 import SearchFilter from './SearchFilter';
 import ThemeSwitcher from './ThemeSwitcher';
 import NoItemFound from '../assets/no-item-found.svg';
@@ -6,15 +6,18 @@ import NoItemFound from '../assets/no-item-found.svg';
 import TodoItem from './TodoItem';
 import { IoIosAdd } from 'react-icons/io';
 import AddUpdateModal from './AddUpdateModal';
+import { v4 as uuid } from 'uuid';
 
 const Todo = () => {
-	const [todoList, setTodoList] = useState([]);
+	const id = uuid();
+	const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('wowTodos')) ?? []);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [todoToEdit, setTodoToEdit] = useState({});
 
 	const handleAddTodo = (todo) => {
-		console.log(todo);
+		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id }]);
+		setIsModalOpen(false)
 	};
 
 	const handleEdit = (todo) => {
@@ -27,7 +30,10 @@ const Todo = () => {
 		console.log(todo);
 	};
 
-	useEffect(() => {}, [todoList]);
+	useEffect(() => {
+		localStorage.setItem('wowTodos', JSON.stringify(todoList));
+	}, [todoList]);
+
 	// useEffect(() => {
 	//   setIsModalOpen(true);
 	// }, [todoToEdit]);

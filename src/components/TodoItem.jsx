@@ -3,9 +3,9 @@ import { MdOutlineDeleteForever } from 'react-icons/md';
 
 const getStatusColor = (status) => {
 	switch (status) {
-		case 'In Progress':
+		case 'in-progress':
 			return 'warning';
-		case 'Completed':
+		case 'completed':
 			return 'success';
 		default:
 			return 'neutral';
@@ -20,12 +20,16 @@ const TodoItem = ({ todo, handleEdit, handleDelete }) => {
 				<div>
 					<p className="font-medium text-base">
 						{todo?.title}{' '}
-						<div className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>{todo?.status}</div>
+						<span className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>{todo?.status}</span>
 					</p>
 				</div>
 				<div className="flex gap-2 items-center">
-					<CiEdit className="text-primary" size={20} onClick={() => handleEdit(todo)} />
-					<MdOutlineDeleteForever className="text-red-600" size={20} onClick={() => handleDelete(todo)} />
+					<CiEdit className="text-primary cursor-pointer" size={20} onClick={() => handleEdit(todo)} />
+					<MdOutlineDeleteForever
+						className="text-red-600 cursor-pointer"
+						size={20}
+						onClick={() => handleDelete(todo)}
+					/>
 				</div>
 			</div>
 

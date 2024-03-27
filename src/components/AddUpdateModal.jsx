@@ -8,10 +8,17 @@ const schema = yup.object().shape({
 	description: yup.string().required('Description is required'),
 	priority: yup.string().required('Priority is required'),
 	deadline: yup.date().required('Deadline is required'),
-	status: yup.string().required('Status is required'),
 });
 
-const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading=false, isOpen, setIsOpen, isUpdate = false, todo = {} }) => {
+const AddUpdateModal = ({
+	handleAddTodo,
+	handleEditTodo,
+	loading = false,
+	isOpen,
+	setIsOpen,
+	isUpdate = false,
+	todo = {},
+}) => {
 	const {
 		register,
 		handleSubmit,
@@ -23,10 +30,11 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading=false, isOpen, 
 
 	const onSubmit = async (data) => {
 		if (isUpdate) {
-      handleEditTodo(data);
-    } else {
-      handleAddTodo(data);
-    }
+			handleEditTodo(data);
+		} else {
+			handleAddTodo(data);
+		}
+		reset();
 	};
 
 	useEffect(() => {
@@ -117,7 +125,7 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading=false, isOpen, 
 							)}
 
 							<div className="modal-action">
-								<button type="submit" disabled={loading} className="btn btn-primary">
+								<button type="submit" className="btn btn-primary text-white">
 									Apply {loading && <span className="loading loading-spinner loading-md"></span>}
 								</button>
 							</div>
