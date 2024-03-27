@@ -1,8 +1,48 @@
-# React + Vite
+# Todo App Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This documentation provides an overview of the features implemented in the Todo App and instructions on how to set up and run the application locally.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Users can add a new task by entering a title and description.
+- Users can edit the title and description of an existing task.
+- Users can mark a task as completed or pending.
+- Users can delete a task.
+- Form validation ensures that required fields are filled out correctly.
+- The application displays a list of tasks, with the ability to filter tasks based on their completion status (completed, pending, in-progress, or all).
+- Tasks are persisted locally, preventing data loss upon page refresh.
+
+## Technologies Used
+
+- React
+- Vite
+- LocalStorage for data persistence
+
+## Setup Instructions
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/Chizycodes/wow-ai-test.git
+    ```
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd wow-ai-test
+    ```
+
+3. **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+4. **Start the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+5. **Access the application:**
+    Open your web browser and navigate to `http://localhost:5173`.
