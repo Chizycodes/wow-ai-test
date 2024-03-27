@@ -11,9 +11,13 @@ import { v4 as uuid } from 'uuid';
 const Todo = () => {
 	const id = uuid();
 	const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('wowTodos')) ?? []);
+	const [filteredList, setFilteredList] = useState(todoList);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isUpdate, setIsUpdate] = useState({});
 	const [todoToEdit, setTodoToEdit] = useState(null);
+
+	// Search Logic
+	const [searchQuery, setSearchQuery] = useState('');
 
 	const handleAddTodo = (todo) => {
 		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
@@ -23,7 +27,7 @@ const Todo = () => {
 	const handleEdit = (todo) => {
 		const updatedTodo = todoList.map((t) => {
 			if (t.id === todo.id) {
-				return { ...todo, lastUpdated: new Date()};
+				return { ...todo, lastUpdated: new Date() };
 			}
 			return t;
 		});
@@ -42,6 +46,12 @@ const Todo = () => {
 	};
 
 	useEffect(() => {
+		const filteredTodoList = todoList.filter((todo) => todo.title.toLowerCase().includes(searchQuery.toLowerCase()));
+		setFilteredList(filteredTodoList);
+	}, [searchQuery]);
+
+	useEffect(() => {
+		setFilteredList(todoList);
 		localStorage.setItem('wowTodos', JSON.stringify(todoList));
 	}, [todoList]);
 
@@ -52,12 +62,12 @@ const Todo = () => {
 					<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
 					<ThemeSwitcher />
 				</div>
-				<SearchFilter />
+				<SearchFilter todoList={todoList} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 			</div>
 			<div className="h-[70%] mt-5 overflow-y-auto">
-				{todoList.length > 0 ? (
+				{filteredList.length > 0 ? (
 					<div className="flex flex-col">
-						{todoList.map((todo) => (
+						{filteredList.map((todo) => (
 							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} setTodoToEdit={setTodoToEdit} />
 						))}
 					</div>

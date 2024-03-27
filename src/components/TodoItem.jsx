@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 
@@ -15,7 +16,7 @@ const getStatusColor = (status) => {
 const TodoItem = ({ todo, setTodoToEdit, handleDelete }) => {
 	return (
 		<div className="collapse bg-transparent shadow-md">
-			<input type="checkbox" className="w-full p-0" />
+			<input type="radio" name="todo-item" className="w-full p-0" />
 			<div className="collapse-title flex justify-between gap-2 w-full">
 				<div>
 					<p className="font-medium text-base">
