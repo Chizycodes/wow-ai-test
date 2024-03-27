@@ -12,7 +12,7 @@ const getStatusColor = (status) => {
 	}
 };
 
-const TodoItem = ({ todo, handleEdit, handleDelete }) => {
+const TodoItem = ({ todo, setTodoToEdit, handleDelete }) => {
 	return (
 		<div className="collapse bg-transparent shadow-md">
 			<input type="checkbox" className="w-full p-0" />
@@ -23,8 +23,8 @@ const TodoItem = ({ todo, handleEdit, handleDelete }) => {
 						<span className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>{todo?.status}</span>
 					</p>
 				</div>
-				<div className="flex gap-2 items-center">
-					<CiEdit className="text-primary cursor-pointer" size={20} onClick={() => handleEdit(todo)} />
+				<div className="flex gap-2 items-center z-20">
+					<CiEdit className="text-primary cursor-pointer" size={20} onClick={() => setTodoToEdit(todo)} />
 					<MdOutlineDeleteForever
 						className="text-red-600 cursor-pointer"
 						size={20}

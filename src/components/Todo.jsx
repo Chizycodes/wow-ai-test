@@ -12,31 +12,34 @@ const Todo = () => {
 	const id = uuid();
 	const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('wowTodos')) ?? []);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isUpdate, setIsUpdate] = useState(false);
-	const [todoToEdit, setTodoToEdit] = useState({});
+	const [isUpdate, setIsUpdate] = useState({});
+	const [todoToEdit, setTodoToEdit] = useState(null);
 
 	const handleAddTodo = (todo) => {
 		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id }]);
-		setIsModalOpen(false)
+		setIsModalOpen(false);
 	};
 
 	const handleEdit = (todo) => {
-		console.log(todo);
-		setTodoToEdit(todo);
-		setIsModalOpen(true);
+		const updatedTodo = todoList.map((t) => {
+			if (t.id === todo.id) {
+				return todo;
+			}
+			return t;
+		});
+		setTodoList(updatedTodo);
+		setTodoToEdit(null);
 	};
 
 	const handleDelete = (todo) => {
-		console.log(todo);
+		const updatedTodo = todoList.filter((t) => t.id !== todo.id);
+		setTodoList(updatedTodo);
 	};
 
 	useEffect(() => {
 		localStorage.setItem('wowTodos', JSON.stringify(todoList));
 	}, [todoList]);
 
-	// useEffect(() => {
-	//   setIsModalOpen(true);
-	// }, [todoToEdit]);
 	return (
 		<div className="h-full">
 			<div>
@@ -50,7 +53,7 @@ const Todo = () => {
 				{todoList.length > 0 ? (
 					<div className="flex flex-col">
 						{todoList.map((todo) => (
-							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} handleEdit={handleEdit} />
+							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} setTodoToEdit={setTodoToEdit} />
 						))}
 					</div>
 				) : (
@@ -67,14 +70,14 @@ const Todo = () => {
 				<IoIosAdd size={120} />
 			</div>
 
-			{isModalOpen && (
+			{(isModalOpen || todoToEdit) && (
 				<AddUpdateModal
-					isOpen={isModalOpen}
+					isOpen={isModalOpen || todoToEdit}
 					setIsOpen={setIsModalOpen}
 					handleAddTodo={handleAddTodo}
-					handleEdit={handleEdit}
+					handleEditTodo={handleEdit}
 					isUpdate={isUpdate}
-					todo={todoToEdit}
+					todoToEdit={todoToEdit}
 				/>
 			)}
 		</div>

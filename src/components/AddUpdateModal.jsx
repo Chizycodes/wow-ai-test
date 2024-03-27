@@ -17,7 +17,7 @@ const AddUpdateModal = ({
 	isOpen,
 	setIsOpen,
 	isUpdate = false,
-	todo = {},
+	todoToEdit = {},
 }) => {
 	const {
 		register,
@@ -29,17 +29,19 @@ const AddUpdateModal = ({
 	});
 
 	const onSubmit = async (data) => {
-		if (isUpdate) {
+		if (todoToEdit?.id) {
 			handleEditTodo(data);
 		} else {
 			handleAddTodo(data);
 		}
 		reset();
+		setIsOpen(false);
+		
 	};
 
 	useEffect(() => {
-		if (isUpdate) {
-			reset(todo);
+		if (todoToEdit?.id) {
+			reset(todoToEdit);
 		}
 	}, []);
 
@@ -51,7 +53,7 @@ const AddUpdateModal = ({
 						✕
 					</button>
 				</form>
-				<h3 className="font-bold text-lg">{isUpdate ? 'EDIT' : 'ADD'} TO-DO</h3>
+				<h3 className="font-bold text-lg">{todoToEdit ? 'EDIT' : 'ADD'} TO-DO</h3>
 				<div>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="mt-3 flex flex-col gap-2">
@@ -116,8 +118,8 @@ const AddUpdateModal = ({
 										}`}
 									>
 										<option value="">Select Status</option>
-										<option value="not_started">Not Started</option>
-										<option value="in_progress">In Progress</option>
+										<option value="pending">Pending</option>
+										<option value="in-progress">In Progress</option>
 										<option value="completed">Completed</option>
 									</select>
 									{errors.status && <p className="text-red-500 text-xs mt-1">{errors.status.message}</p>}
