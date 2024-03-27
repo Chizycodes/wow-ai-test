@@ -52,7 +52,7 @@ const SearchFilter = ({
 						))}
 					</div>
 
-					<p className="mt-2 font-medium">Filter by Priority:</p>
+					<p className="mt-3 font-medium">Filter by Priority:</p>
 					{/* Priority Filter */}
 					<div className="flex flex-wrap gap-2">
 						{priorityOptions.map((priority) => (
