@@ -1,10 +1,16 @@
-const Todo = () => {
-  return (
-    <div>
-      <h1 className="h-1 font-bold text-xl uppercase">WOW Todo</h1>
-      
-    </div>
-  )
-}
+import SearchFilter from './SearchFilter';
+import ThemeSwitcher from './ThemeSwitcher';
 
-export default Todo
+const Todo = () => {
+	return (
+		<div>
+			<div className="flex justify-between items-center">
+				<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
+				<ThemeSwitcher />
+			</div>
+			<SearchFilter />
+		</div>
+	);
+};
+
+export default Todo;
