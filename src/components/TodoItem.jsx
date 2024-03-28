@@ -2,7 +2,7 @@ import moment from 'moment';
 import { CiEdit } from 'react-icons/ci';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { AiOutlineDrag } from 'react-icons/ai';
-import { motion, useAnimate, stagger } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const getStatusColor = (status) => {
 	switch (status) {

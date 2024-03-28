@@ -23,7 +23,9 @@ const Todo = () => {
 
 	// Function to apply filter
 	const handleFilter = () => {
-		const filtered = todoList.filter((todo) => todo.status === statusFilter || todo.priority === priorityFilter);
+		const filtered = todoList.filter((todo) =>
+			statusFilter !== 'all' ? todo.status === statusFilter || todo.priority === priorityFilter : true
+		);
 		setFilteredList(filtered);
 	};
 

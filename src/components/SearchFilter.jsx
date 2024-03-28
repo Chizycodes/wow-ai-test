@@ -1,8 +1,8 @@
 import { SearchIcon } from '../assets/SvgIcons';
 import { IoFilter } from 'react-icons/io5';
 
-const statusOptions = ['pending', 'in-progress', 'completed', ''];
-const priorityOptions = ['low', 'medium', 'high', ''];
+const statusOptions = ['pending', 'in-progress', 'completed', 'all'];
+const priorityOptions = ['low', 'medium', 'high', 'all'];
 
 const SearchFilter = ({
 	searchQuery,
@@ -40,15 +40,15 @@ const SearchFilter = ({
 							<div key={status} className="flex items-center gap-1">
 								<input
 									type="radio"
-									id={status || 'allStatus'}
+									id={status}
 									name="statusFilter"
 									className="radio radio-primary radio-xs"
 									checked={status === statusFilter}
 									onChange={() => setStatusFilter(status)}
 								/>
 
-								<label htmlFor={status || 'allStatus'} className="text-xs">
-									{status ? status : 'all'}
+								<label htmlFor={status} className="text-xs">
+									{status}
 								</label>
 							</div>
 						))}
@@ -61,14 +61,14 @@ const SearchFilter = ({
 							<div key={priority} className="flex items-center gap-1">
 								<input
 									type="radio"
-									id={priority || 'allPriority'}
+									id={priority}
 									name="priorityFilter"
 									className="radio radio-primary radio-xs"
 									checked={priority === priorityFilter}
 									onChange={() => setPriorityFilter(priority)}
 								/>
-								<label htmlFor={priority || 'allPriority'} className="text-xs">
-									{priority ? priority : 'all'}
+								<label htmlFor={priority} className="text-xs">
+									{priority}
 								</label>
 							</div>
 						))}
