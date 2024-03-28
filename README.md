@@ -8,14 +8,16 @@ This documentation provides an overview of the features implemented in the Todo 
 - Users can edit the title, description, priority, due date and status of an existing task.
 - Users can mark a task as pending, in-progress or completed.
 - Users can delete a task.
-- Form validation ensures that required fields are filled out correctly.
-- The application displays a list of tasks, with the ability to filter tasks based on their completion status (completed, pending, in-progress, or all) and priority (low, medium, high and all).
+- Form validation.
+- The application displays a list of tasks, with the ability to filter tasks based on their completion status (completed, pending, in-progress) and priority (low, medium, high).
 - Tasks are persisted locally, preventing data loss upon page refresh.
 
 ## Technologies Used
 
 - React
 - Vite
+- Tailwind CSS
+- Daisy UI
 - LocalStorage for data persistence
 
 ## Setup Instructions
