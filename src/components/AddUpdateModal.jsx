@@ -1,8 +1,10 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const schema = yup.object().shape({
 	title: yup.string().required('Title is required'),
@@ -16,6 +18,8 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 		register,
 		handleSubmit,
 		reset,
+		watch,
+		control,
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(schema),
@@ -33,7 +37,7 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 
 	useEffect(() => {
 		if (todoToEdit?.id) {
-			reset({ ...todoToEdit, dueDate: moment(todoToEdit?.deadline).format('YYYY-MM-DD') });
+			reset({ ...todoToEdit });
 		}
 	}, []);
 
@@ -45,16 +49,16 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 						✕
 					</button>
 				</form>
-				<h3 className="font-bold text-lg">{todoToEdit ? 'EDIT' : 'NEW'} TASK</h3>
+				<h3 className="font-bold text-base text-center">{todoToEdit ? 'EDIT' : 'NEW'} TASK</h3>
 				<div>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="mt-3 flex flex-col gap-2">
 							<div className="flex flex-col">
-								<label className="font-medium">Title</label>
+								<label className="font-medium text-sm mb-1">Title</label>
 								<input
 									type="text"
 									{...register('title')}
-									className={`grow input input-md border-primary focus:border-primary focus:outline-none outline-none bg-transparent ${
+									className={`input border-primary focus:border-primary focus:outline-none outline-none bg-transparent h-10 text-sm ${
 										errors.title ? 'border-red-500' : ''
 									}`}
 								/>
@@ -62,10 +66,10 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 							</div>
 
 							<div className="flex flex-col">
-								<label className="font-medium">Description</label>
+								<label className="font-medium text-sm mb-1">Description</label>
 								<textarea
 									{...register('description')}
-									className={`grow input input-md border-primary focus:border-primary focus:outline-none outline-none bg-transparent ${
+									className={`textarea textarea-bordered border-primary focus:border-primary focus:outline-none outline-none bg-transparent h-16 text-sm ${
 										errors.description ? 'border-red-500' : ''
 									}`}
 								/>
@@ -73,10 +77,10 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 							</div>
 
 							<div className="flex flex-col">
-								<label className="font-medium">Priority</label>
+								<label className="font-medium text-sm mb-1">Priority</label>
 								<select
 									{...register('priority')}
-									className={`select focus:border-primary focus:outline-none outline-none input-md border-primary bg-transparent ${
+									className={`select select-sm focus:border-primary focus:outline-none outline-none border-primary bg-transparent h-10 text-sm ${
 										errors.priority ? 'border-red-500' : ''
 									}`}
 								>
@@ -89,23 +93,39 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 							</div>
 
 							<div className="flex flex-col">
-								<label className="font-medium">Due Date</label>
-								<input
-									type="date"
-									{...register('dueDate')}
-									className={`input input-md border-primary focus:border-primary focus:outline-none outline-none bg-transparent ${
-										errors.deadline ? 'border-red-500' : ''
-									}`}
+								<label className="font-medium text-sm mb-1">Due Date</label>
+								<Controller
+									control={control}
+									name="dueDate"
+									render={({ field: { onChange, onBlur, value } }) => (
+										<DatePicker
+											dateFormat="d MMM yyyy h:mm aa"
+											minDate={new Date()}
+											selected={value}
+											showTimeSelect
+											todayButton="Today"
+											dropdownMode="select"
+											isClearable
+											placeholderText="Select date"
+											shouldCloseOnSelect
+											onChange={onChange}
+											onBlur={onBlur}
+											className={`input border-primary focus:border-primary focus:outline-none outline-none bg-transparent h-10 text-sm w-full ${
+												errors.dueDate ? 'border-red-500' : ''
+											}`}
+										/>
+									)}
 								/>
-								{errors.deadline && <p className="text-red-500 text-xs mt-1">{errors.deadline.message}</p>}
+
+								{errors.dueDate && <p className="text-red-500 text-xs mt-1">{errors.dueDate.message}</p>}
 							</div>
 
 							{todoToEdit && (
 								<div className="flex flex-col">
-									<label className="font-medium">Status</label>
+									<label className="font-medium text-sm mb-1">Status</label>
 									<select
 										{...register('status')}
-										className={`select focus:border-primary focus:outline-none outline-none input-md border-primary bg-transparent ${
+										className={`select select-md focus:border-primary focus:outline-none outline-none border-primary bg-transparent h-10 text-sm ${
 											errors.status ? 'border-red-500' : ''
 										}`}
 									>

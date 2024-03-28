@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import { MdOutlineDeleteForever } from 'react-icons/md';
@@ -15,10 +16,11 @@ const getStatusColor = (status) => {
 
 const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen }) => {
 	return (
-		<div className="collapse bg-transparent shadow-md">
+		<div className="collapse bg-transparent shadow-md transition duration-1000 transform hover:scale-y-110 hover:duration-300 ease-in-out ">
 			<input
 				type="radio"
 				name="todo-item"
+				readOnly
 				checked={todoOpen === todo?.id}
 				onClick={() => setTodoOpen(todo.id === todoOpen ? null : todo.id)}
 			/>
@@ -30,16 +32,28 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen }) 
 					</p>
 				</div>
 				<div className="flex gap-2 items-center z-10">
-					<CiEdit className="text-primary cursor-pointer" size={20} onClick={() => setTodoToEdit(todo)} />
+					<CiEdit
+						className="text-primary cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+						size={20}
+						onClick={() => setTodoToEdit(todo)}
+						title="Edit"
+					/>
 					<MdOutlineDeleteForever
-						className="text-red-600 cursor-pointer"
+						className="text-red-600 cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
 						size={20}
 						onClick={() => handleDelete(todo)}
+						title="Delete"
 					/>
 				</div>
 			</div>
 
 			<div className="collapse-content">
+				<div className="flex items-center justify-between">
+					<p className="text-sm">Priority: {todo?.priority}</p>
+					<p className="text-sm">
+						Due Date: {todo?.dueDate ? moment(todo?.dueDate).format('YYYY-MM-DD  h:mm a') : '-'}
+					</p>
+				</div>
 				<p>{todo?.description}</p>
 			</div>
 		</div>
