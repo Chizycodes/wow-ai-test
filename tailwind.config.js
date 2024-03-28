@@ -7,12 +7,10 @@ export default {
 			colors: {
 				primary: '#6C63FF',
 				dark: {
-					default: '#666666',
-          lighter: '#999999',
-          light: '#CCCCCC',
-          darker: '#333333',
-          darkest: '#000000',
-				}
+					bg: '#121212',
+					card: '#1E1E1E',
+					popup: '#2D2D2D',
+				},
 			},
 		},
 	},

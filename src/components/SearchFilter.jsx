@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { SearchIcon } from '../assets/SvgIcons';
 import { IoFilter } from 'react-icons/io5';
+import { ThemeContext } from '../context/themeContext';
 
 const statusOptions = ['pending', 'in-progress', 'completed', 'all'];
 const priorityOptions = ['low', 'medium', 'high', 'all'];
@@ -14,6 +16,8 @@ const SearchFilter = ({
 	handleFilter,
 	resetFilters,
 }) => {
+	const { theme } = useContext(ThemeContext);
+
 	return (
 		<div className="mt-4 flex gap-4 justify-end items-center">
 			{/* Search */}
@@ -32,7 +36,12 @@ const SearchFilter = ({
 				<div tabIndex={0} role="button" title="Filter" className=" m-1 cursor-pointer">
 					<IoFilter size={20} />
 				</div>
-				<div tabIndex={0} className="dropdown-content z-[20] menu px-3 py-4 shadow-md bg-slate-50 rounded-box w-52">
+				<div
+					tabIndex={0}
+					className={`dropdown-content z-[20] menu px-3 py-4 shadow-md rounded-box w-52 ${
+						theme === 'light' ? 'bg-slate-50 text-zinc-600' : 'bg-dark-popup text-zinc-400'
+					}`}
+				>
 					<p className="mb-1 font-medium text-xs">Filter by Status</p>
 					{/* Status Filter */}
 					<div className="flex flex-wrap gap-2">

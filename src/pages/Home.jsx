@@ -90,7 +90,7 @@ const Todo = () => {
 			<div>
 				<div className="flex justify-between items-center">
 					<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
-					{/* <ThemeSwitcher /> */}
+					<ThemeSwitcher />
 				</div>
 				<SearchFilter
 					searchQuery={searchQuery}

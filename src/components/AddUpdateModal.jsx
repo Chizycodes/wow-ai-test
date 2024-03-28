@@ -1,9 +1,10 @@
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ThemeContext } from '../context/themeContext';
 
 const schema = yup.object().shape({
 	title: yup.string().required('Title is required').min(3),
@@ -13,6 +14,7 @@ const schema = yup.object().shape({
 });
 
 const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen, handleClose, todoToEdit = {} }) => {
+	const { theme } = useContext(ThemeContext);
 	const {
 		register,
 		handleSubmit,
@@ -41,7 +43,7 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 
 	return (
 		<dialog id="todo-modal" className={`modal ${isOpen ? 'modal-open' : ''}`}>
-			<div className="modal-box bg-white text-gray-700">
+			<div className={`modal-box ${theme === 'light' ? 'bg-white text-zinc-600' : 'bg-dark-card text-zinc-400'}`}>
 				<form method="dialog">
 					<button className="btn btn-sm btn-ghost absolute right-2 top-2" onClick={handleClose}>
 						✕

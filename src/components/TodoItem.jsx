@@ -3,6 +3,8 @@ import { CiEdit } from 'react-icons/ci';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { AiOutlineDrag } from 'react-icons/ai';
 import { motion } from 'framer-motion';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/themeContext';
 
 const getStatusColor = (status) => {
 	switch (status) {
@@ -15,7 +17,24 @@ const getStatusColor = (status) => {
 	}
 };
 
+const getTextColorClass = (status, theme) => {
+	if (status === 'completed') {
+		if (theme === 'dark') {
+			return 'text-zinc-700 line-through'; // Lighter shade for completed tasks in dark mode
+		} else {
+			return 'text-zinc-300 line-through'; // Darker shade for completed tasks in light mode
+		}
+	} else {
+		if (theme === 'dark') {
+			return 'text-zinc-400'; // Darker shade for incomplete tasks in dark mode
+		} else {
+			return 'text-zinc-600'; // Default color for incomplete tasks in light mode
+		}
+	}
+};
+
 const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen, index }) => {
+	const { theme } = useContext(ThemeContext);
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: -20 }}
@@ -23,7 +42,7 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen, in
 			exit={{ opacity: 0, y: -20 }}
 			transition={{ duration: 0.5, delay: index * 0.1 }}
 		>
-			<div className="collapse bg-transparent shadow-md transition duration-1000 transform hover:scale-y-110 hover:duration-300 ease-in-out ">
+			<div className="collapse bg-transparent shadow-md transition duration-1000 transform hover:scale-y-110 hover:duration-300 ease-in-out">
 				<input
 					type="radio"
 					name="todo-item"
@@ -37,7 +56,11 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen, in
 							<AiOutlineDrag size={20} title="Re-order" />
 						</div>
 						<p className="font-medium text-sm">
-							<span className={todo?.status === 'completed' ? 'line-through text-zinc-300' : ''}>{todo?.title}</span>{' '}
+							<span
+								className={getTextColorClass(todo?.status, theme)}
+							>
+								{todo?.title}
+							</span>{' '}
 							<span className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>
 								{todo?.status}
 							</span>
