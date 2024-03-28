@@ -125,7 +125,7 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 									<label className="font-medium text-sm mb-1">Status</label>
 									<select
 										{...register('status')}
-										className={`select select-md focus:border-primary focus:outline-none outline-none border-primary bg-transparent h-10 text-sm ${
+										className={`select select-sm focus:border-primary focus:outline-none outline-none border-primary bg-transparent h-10 text-sm ${
 											errors.status ? 'border-red-500' : ''
 										}`}
 									>
