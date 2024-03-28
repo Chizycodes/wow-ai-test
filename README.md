@@ -11,6 +11,7 @@ This documentation provides an overview of the features implemented in the Todo 
 - Form validation.
 - The application displays a list of tasks, with the ability to filter tasks based on their completion status (completed, pending, in-progress) and priority (low, medium, high).
 - Tasks are persisted locally, preventing data loss upon page refresh.
+- Users can also switch between light and dark mode.
 
 ## Technologies Used
 
