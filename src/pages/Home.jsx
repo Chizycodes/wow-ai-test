@@ -13,7 +13,6 @@ const Todo = () => {
 	const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('wowTodos')) ?? []);
 	const [filteredList, setFilteredList] = useState(todoList);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isUpdate, setIsUpdate] = useState({});
 	const [todoToEdit, setTodoToEdit] = useState(null);
 	const [todoOpen, setTodoOpen] = useState(null);
 
@@ -37,8 +36,11 @@ const Todo = () => {
 
 	// Function to add a task to the list
 	const handleAddTodo = (todo) => {
-		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
-		setIsModalOpen(false);
+		// Simulate API call delay with a timeout
+		setTimeout(() => {
+			setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
+			setIsModalOpen(false);
+		}, 1000);
 	};
 
 	// Function to update an existing task
@@ -49,8 +51,10 @@ const Todo = () => {
 			}
 			return t;
 		});
-		setTodoList(updatedTodo);
-		setTodoToEdit(null);
+		setTimeout(() => {
+			setTodoList(updatedTodo);
+			setTodoToEdit(null);
+		}, 1000);
 	};
 
 	// Function to delete an existing task
@@ -149,7 +153,6 @@ const Todo = () => {
 					handleClose={handleClose}
 					handleAddTodo={handleAddTodo}
 					handleEditTodo={handleEdit}
-					isUpdate={isUpdate}
 					todoToEdit={todoToEdit}
 				/>
 			)}
