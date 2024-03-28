@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import SearchFilter from './SearchFilter';
 import ThemeSwitcher from './ThemeSwitcher';
+import { Draggable, DragDropContext, Droppable } from '@hello-pangea/dnd';
 import NoItemFound from '../assets/no-item-found.svg';
 // import todolist from '../utils/data';
 import TodoItem from './TodoItem';
@@ -71,12 +72,21 @@ const Todo = () => {
 		localStorage.setItem('wowTodos', JSON.stringify(todoList));
 	}, [todoList]);
 
+	const onDragEnd = (result) => {
+		console.log(result);
+		if (!result.destination) return;
+		const items = Array.from(todoList);
+		const [reorderedItem] = items.splice(result.source.index, 1);
+		items.splice(result.destination.index, 0, reorderedItem);
+		setTodoList(items);
+	};
+
 	return (
 		<div className="h-full">
 			<div>
 				<div className="flex justify-between items-center">
 					<h1 className="font-bold text-xl uppercase text-primary">WOW Todo</h1>
-					<ThemeSwitcher />
+					{/* <ThemeSwitcher /> */}
 				</div>
 				<SearchFilter
 					searchQuery={searchQuery}
@@ -92,9 +102,29 @@ const Todo = () => {
 			<div className="h-[70%] mt-5 overflow-y-auto">
 				{filteredList.length > 0 ? (
 					<div className="flex flex-col">
-						{filteredList.map((todo) => (
-							<TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} setTodoToEdit={setTodoToEdit} todoOpen={todoOpen} setTodoOpen={setTodoOpen} />
-						))}
+						<DragDropContext onDragEnd={onDragEnd}>
+							<Droppable droppableId="todo-list">
+								{(provided) => (
+									<div ref={provided.innerRef} {...provided.droppableProps}>
+										{filteredList.map((todo, index) => (
+											<Draggable key={todo.id} draggableId={todo.id} index={index}>
+												{(provided) => (
+													<div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+														<TodoItem
+															todo={todo}
+															handleDelete={handleDelete}
+															setTodoToEdit={setTodoToEdit}
+															todoOpen={todoOpen}
+															setTodoOpen={setTodoOpen}
+														/>
+													</div>
+												)}
+											</Draggable>
+										))}
+									</div>
+								)}
+							</Droppable>
+						</DragDropContext>
 					</div>
 				) : (
 					<div className="flex justify-center mt-10">

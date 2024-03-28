@@ -2,6 +2,7 @@ import moment from 'moment';
 import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import { MdOutlineDeleteForever } from 'react-icons/md';
+import { AiOutlineDrag } from 'react-icons/ai';
 
 const getStatusColor = (status) => {
 	switch (status) {
@@ -24,8 +25,11 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen }) 
 				checked={todoOpen === todo?.id}
 				onClick={() => setTodoOpen(todo.id === todoOpen ? null : todo.id)}
 			/>
-			<div className="collapse-title flex justify-between gap-2 w-full">
-				<div>
+			<div className="collapse-title flex justify-between gap-2 w-full pe-4">
+				<div className="flex items-center gap-2">
+					<div className='z-10'>
+						<AiOutlineDrag size={20} title='Re-order' />
+					</div>
 					<p className="font-medium text-base">
 						<span className={todo?.status === 'completed' ? 'line-through' : ''}>{todo?.title}</span>{' '}
 						<span className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>{todo?.status}</span>
