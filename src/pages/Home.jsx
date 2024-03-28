@@ -36,11 +36,8 @@ const Todo = () => {
 
 	// Function to add a task to the list
 	const handleAddTodo = (todo) => {
-		// Simulate API call delay with a timeout
-		setTimeout(() => {
-			setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
-			setIsModalOpen(false);
-		}, 1000);
+		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
+		setIsModalOpen(false);
 	};
 
 	// Function to update an existing task
@@ -51,10 +48,8 @@ const Todo = () => {
 			}
 			return t;
 		});
-		setTimeout(() => {
-			setTodoList(updatedTodo);
-			setTodoToEdit(null);
-		}, 1000);
+		setTodoList(updatedTodo);
+		setTodoToEdit(null);
 	};
 
 	// Function to delete an existing task
@@ -118,6 +113,7 @@ const Todo = () => {
 												{(provided) => (
 													<div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
 														<TodoItem
+															index={index}
 															todo={todo}
 															handleDelete={handleDelete}
 															setTodoToEdit={setTodoToEdit}

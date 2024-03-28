@@ -17,7 +17,6 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 		register,
 		handleSubmit,
 		reset,
-		watch,
 		control,
 		formState: { errors },
 	} = useForm({

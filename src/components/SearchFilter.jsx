@@ -16,6 +16,7 @@ const SearchFilter = ({
 }) => {
 	return (
 		<div className="mt-4 flex gap-4 justify-end items-center">
+			{/* Search */}
 			<label className="input input-bordered input-sm flex items-center gap-2 border-primary focus:outline-none bg-transparent rounded-full max-w-80 w-[80%]">
 				<input
 					type="text"
@@ -74,11 +75,9 @@ const SearchFilter = ({
 					</div>
 
 					<div className="mt-2 flex items-center justify-end gap-4">
-						{/* Reset Filters Button */}
 						<button onClick={resetFilters} className="text-primary hover:underline">
 							Reset
 						</button>
-						{/* Reset Filters Button */}
 						<button onClick={handleFilter} className="btn btn-xs btn-primary bg-primary text-white">
 							Apply
 						</button>
