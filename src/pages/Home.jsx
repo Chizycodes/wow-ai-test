@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import SearchFilter from './SearchFilter';
-import ThemeSwitcher from './ThemeSwitcher';
+import SearchFilter from '../components/SearchFilter';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 import { Draggable, DragDropContext, Droppable } from '@hello-pangea/dnd';
 import NoItemFound from '../assets/no-item-found.svg';
-// import todolist from '../utils/data';
-import TodoItem from './TodoItem';
+import TodoItem from '../components/TodoItem';
 import { IoIosAdd } from 'react-icons/io';
-import AddUpdateModal from './AddUpdateModal';
+import AddUpdateModal from '../components/AddUpdateModal';
 import { v4 as uuid } from 'uuid';
 
 const Todo = () => {
@@ -23,7 +22,7 @@ const Todo = () => {
 	const [statusFilter, setStatusFilter] = useState('');
 	const [priorityFilter, setPriorityFilter] = useState('');
 
-	// Function to handle filter
+	// Function to apply filter
 	const handleFilter = () => {
 		const filtered = todoList.filter((todo) => todo.status === statusFilter || todo.priority === priorityFilter);
 		setFilteredList(filtered);
@@ -36,11 +35,13 @@ const Todo = () => {
 		setFilteredList(todoList);
 	};
 
+	// Function to add a task to the list
 	const handleAddTodo = (todo) => {
 		setTodoList((prev) => [...prev, { ...todo, status: 'pending', id, dateCreated: new Date() }]);
 		setIsModalOpen(false);
 	};
 
+	// Function to update an existing task
 	const handleEdit = (todo) => {
 		const updatedTodo = todoList.map((t) => {
 			if (t.id === todo.id) {
@@ -52,6 +53,7 @@ const Todo = () => {
 		setTodoToEdit(null);
 	};
 
+	// Function to delete an existing task
 	const handleDelete = (todo) => {
 		const updatedTodo = todoList.filter((t) => t.id !== todo.id);
 		setTodoList(updatedTodo);
@@ -68,6 +70,7 @@ const Todo = () => {
 	}, [searchQuery]);
 
 	useEffect(() => {
+		// Update task list and save updated list to local storage
 		setFilteredList(todoList);
 		localStorage.setItem('wowTodos', JSON.stringify(todoList));
 	}, [todoList]);

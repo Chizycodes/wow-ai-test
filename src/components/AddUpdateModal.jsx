@@ -2,13 +2,12 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
-import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const schema = yup.object().shape({
-	title: yup.string().required('Title is required'),
-	description: yup.string().required('Description is required'),
+	title: yup.string().required('Title is required').min(3),
+	description: yup.string().required('Description is required').min(3),
 	priority: yup.string().required('Priority is required'),
 	dueDate: yup.date(),
 });
@@ -129,7 +128,6 @@ const AddUpdateModal = ({ handleAddTodo, handleEditTodo, loading = false, isOpen
 											errors.status ? 'border-red-500' : ''
 										}`}
 									>
-										<option value="">Select Status</option>
 										<option value="pending">Pending</option>
 										<option value="in-progress">In Progress</option>
 										<option value="completed">Completed</option>

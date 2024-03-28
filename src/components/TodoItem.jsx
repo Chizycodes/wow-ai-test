@@ -27,11 +27,11 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen }) 
 			/>
 			<div className="collapse-title flex justify-between gap-2 w-full pe-4">
 				<div className="flex items-center gap-2">
-					<div className='z-10'>
-						<AiOutlineDrag size={20} title='Re-order' />
+					<div className="z-10">
+						<AiOutlineDrag size={20} title="Re-order" />
 					</div>
-					<p className="font-medium text-base">
-						<span className={todo?.status === 'completed' ? 'line-through' : ''}>{todo?.title}</span>{' '}
+					<p className="font-medium text-sm">
+						<span className={todo?.status === 'completed' ? 'line-through text-zinc-300' : ''}>{todo?.title}</span>{' '}
 						<span className={`badge badge-outline badge-sm badge-${getStatusColor(todo?.status)}`}>{todo?.status}</span>
 					</p>
 				</div>
@@ -51,14 +51,12 @@ const TodoItem = ({ todo, setTodoToEdit, handleDelete, todoOpen, setTodoOpen }) 
 				</div>
 			</div>
 
-			<div className="collapse-content">
-				<div className="flex items-center justify-between">
-					<p className="text-sm">Priority: {todo?.priority}</p>
-					<p className="text-sm">
-						Due Date: {todo?.dueDate ? moment(todo?.dueDate).format('YYYY-MM-DD  h:mm a') : '-'}
-					</p>
+			<div className="collapse-content text-xs">
+				<div className="flex items-center justify-between mb-1">
+					<p>Priority: {todo?.priority}</p>
+					<p>Due Date: {todo?.dueDate ? moment(todo?.dueDate).format('YYYY-MM-DD  h:mm a') : '-'}</p>
 				</div>
-				<p>{todo?.description}</p>
+				<p className='text-sm'>{todo?.description}</p>
 			</div>
 		</div>
 	);

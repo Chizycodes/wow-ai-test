@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { SearchIcon } from '../assets/SvgIcons';
 import { IoFilter } from 'react-icons/io5';
 
@@ -20,7 +19,7 @@ const SearchFilter = ({
 			<label className="input input-bordered input-sm flex items-center gap-2 border-primary focus:outline-none bg-transparent rounded-full max-w-80 w-[80%]">
 				<input
 					type="text"
-					className="grow"
+					className="grow text-xs"
 					placeholder="Search Task"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
@@ -32,8 +31,8 @@ const SearchFilter = ({
 				<div tabIndex={0} role="button" title="Filter" className=" m-1 cursor-pointer">
 					<IoFilter size={20} />
 				</div>
-				<div tabIndex={0} className="dropdown-content z-[20] menu p-2 shadow-md bg-slate-50 rounded-box w-52">
-					<p className="font-medium">Filter by Status</p>
+				<div tabIndex={0} className="dropdown-content z-[20] menu px-3 py-4 shadow-md bg-slate-50 rounded-box w-52">
+					<p className="mb-1 font-medium text-xs">Filter by Status</p>
 					{/* Status Filter */}
 					<div className="flex flex-wrap gap-2">
 						{statusOptions.map((status) => (
@@ -47,12 +46,14 @@ const SearchFilter = ({
 									onChange={() => setStatusFilter(status)}
 								/>
 
-								<label htmlFor={status || 'allStatus'}>{status ? status : 'all'}</label>
+								<label htmlFor={status || 'allStatus'} className="text-xs">
+									{status ? status : 'all'}
+								</label>
 							</div>
 						))}
 					</div>
 
-					<p className="mt-3 font-medium">Filter by Priority:</p>
+					<p className="mt-3 mb-1 font-medium text-xs">Filter by Priority</p>
 					{/* Priority Filter */}
 					<div className="flex flex-wrap gap-2">
 						{priorityOptions.map((priority) => (
@@ -65,7 +66,9 @@ const SearchFilter = ({
 									checked={priority === priorityFilter}
 									onChange={() => setPriorityFilter(priority)}
 								/>
-								<label htmlFor={priority || 'allPriority'}>{priority ? priority : 'all'}</label>
+								<label htmlFor={priority || 'allPriority'} className="text-xs">
+									{priority ? priority : 'all'}
+								</label>
 							</div>
 						))}
 					</div>
